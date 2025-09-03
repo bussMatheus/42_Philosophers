@@ -13,10 +13,10 @@ typedef struct s_data
 {
 	int				n_philos;
 	int				num_meals;
-	long			start_time;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
+	int				start_time;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 }	t_data;
@@ -25,7 +25,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals_taken;
-	int			last_meal_u;
+	int				last_meal_u;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	t_data			*data;
