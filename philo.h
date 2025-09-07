@@ -13,10 +13,11 @@ typedef struct s_data
 {
 	int				n_philos;
 	int				num_meals;
-	int				start_time;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	long			start_time;
+	bool			someone_died;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 }	t_data;
@@ -32,14 +33,16 @@ typedef struct s_philo
 }	t_philo;
 
 
-/*					PARSE					*/
+/*					PARSE && Inits					*/
 int		check_valid_input(int ac, char **av);
+int		init_data(int ac, char **av, t_data *data);
 
-
-/*				ERROR AND FREES				*/
+/*					ERROR AND FREES					*/
 void	error_msg(char *str);
+void	destroy_data(t_data *data);
 
-/*					UTILS					*/
+/*						UTILS						*/
+long	get_time(void);
 long	ft_atol(const char *str);
 int		ft_is_invalid_n(char *number);
 

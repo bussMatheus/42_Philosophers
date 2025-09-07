@@ -66,3 +66,14 @@ long	ft_atol(const char *str)
 	}
 	return (result);
 }
+
+long	get_time(void)
+{
+	struct timeval	time;
+	long			ms;
+
+	if (gettimeofday(&time, NULL) == -1)
+		return (-1);
+	ms = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (ms);
+}

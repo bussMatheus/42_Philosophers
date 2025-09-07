@@ -1,4 +1,4 @@
-SRC = main.c parse.c em_and_frees.c utils.c
+SRC = main.c parse.c em_and_frees.c utils.c inits.c
 
 OBJ = $(SRC:%.c=%.o)
 
