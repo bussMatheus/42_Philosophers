@@ -9,27 +9,29 @@
 
 # define INT_MAX 2147483647
 
+typedef pthread_mutex_t t_mtx;
+
 typedef struct s_data
 {
-	int				n_philos;
-	int				num_meals;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	long			start_time;
-	bool			someone_died;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	print_mutex;
+	int		n_philos;
+	int		num_meals;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	long	start_time;
+	bool	someone_died;
+	t_mtx	*forks;
+	t_mtx	print_mutex;
 }	t_data;
 
 typedef struct s_philo
 {
-	int				id;
-	int				meals_taken;
-	int				last_meal_u;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	t_data			*data;
+	int		id;
+	int		meals_taken;
+	int		last_meal_u;
+	t_mtx	*left_fork;
+	t_mtx	*right_fork;
+	t_data	*data;
 }	t_philo;
 
 
