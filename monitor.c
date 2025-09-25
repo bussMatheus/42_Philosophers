@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/25 17:05:07 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/09/25 17:10:43 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 int	run(t_data *data)
@@ -9,7 +21,8 @@ int	run(t_data *data)
 	while (data->n_philos > i)
 	{
 		data->philos[i].last_meal_u = data->start_time;
-		if (pthread_create(&data->philos[i].thread, NULL, &philo_routine, &data->philos[i]) != 0)
+		if (pthread_create(&data->philos[i].thread, NULL, &philo_routine,
+				&data->philos[i]) != 0)
 			return (error_msg("Thread Creation Failed."), 1);
 		if (pthread_detach(data->philos[i].thread) != 0)
 			return (error_msg("Thread Detach Failed."), 1);

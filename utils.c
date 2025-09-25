@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/25 17:05:29 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/09/25 17:16:22 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 static int	get_digit_size(char *num)
@@ -21,7 +33,7 @@ static int	get_digit_size(char *num)
 
 int	ft_is_invalid_n(char *number)
 {
-	int i;
+	int	i;
 	int	digit;
 
 	i = 0;
@@ -58,11 +70,11 @@ long	ft_atol(const char *str)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-			if (sign == 1)
-				result = result * 10 + (str[i] - '0');
-			else
-				result = result * 10 - (str[i] - '0');
-			i++;
+		if (sign == 1)
+			result = result * 10 + (str[i] - '0');
+		else
+			result = result * 10 - (str[i] - '0');
+		i++;
 	}
 	return (result);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/25 17:05:15 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/09/25 17:14:02 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 static void	print_status(t_philo *philo, const char *msg)
@@ -19,10 +31,10 @@ static void	think(t_philo *philo)
 
 static void	eat(t_philo *philo)
 {
-	t_mtx *first;
-	t_mtx *second;
+	t_mtx	*first;
+	t_mtx	*second;
 
- 	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0)
 	{
 		first = philo->right_fork;
 		second = philo->left_fork;

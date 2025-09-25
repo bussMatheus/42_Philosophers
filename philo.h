@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/25 17:05:20 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/09/25 17:13:23 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 # include <stdio.h>
@@ -10,9 +22,9 @@
 
 # define INT_MAX 2147483647
 
-typedef pthread_mutex_t t_mtx;
+typedef pthread_mutex_t	t_mtx;
 
-typedef enum	e_opcode
+typedef enum e_opcode
 {
 	INIT,
 	LOCK,
@@ -52,6 +64,7 @@ typedef struct s_philo
 int		check_valid_input(int ac, char **av);
 int		init_philos(t_data *data);
 int		run(t_data *data);
+void	*philo_routine(void *arg);
 
 /*					ERROR AND FREES					*/
 void	error_msg(char *str);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/25 17:05:11 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/09/25 17:11:31 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 static int	check_numbers(int ac, char **av)
@@ -22,10 +34,9 @@ static int	check_numbers(int ac, char **av)
 
 int	check_valid_input(int ac, char **av)
 {
-	if (ac != 5 && ac !=6)
+	if (ac != 5 && ac != 6)
 		return (error_msg("Invalid number of arguments"), 1);
 	if (check_numbers(ac, av))
 		return (error_msg("Invalid argument(s)"), 1);
 	return (0);
 }
-

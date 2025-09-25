@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   safe_handling.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/25 17:05:24 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/09/25 17:15:45 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 static int	handle_mtx_error(int status, t_opc opcode)
@@ -9,11 +21,13 @@ static int	handle_mtx_error(int status, t_opc opcode)
 	else if (EINVAL == status && INIT == opcode)
 		error_msg("The value specified by attr is invalid.");
 	else if (EDEADLK == status)
-		error_msg("A deadlock would occur if the thread blocked waiting for mutex.");
+		error_msg("A deadlock would occur if the thread blocked waiting \
+			for mutex.");
 	else if (EPERM == status)
 		error_msg("The current thread does not hold a lock on a mutex.");
 	else if (ENOMEM == status)
-		error_msg("The proccess can't allocate enough memory to create another mutex.");
+		error_msg("The proccess can't allocate enough memory to create \
+			another mutex.");
 	else if (EBUSY == status)
 		error_msg("Mutex is Locked");
 	return (1);

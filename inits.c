@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inits.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/25 17:04:56 by mely-pan          #+#    #+#             */
+/*   Updated: 2025/09/25 17:09:42 by mely-pan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philo.h"
 
 static int	init_forks(t_data *data)
@@ -56,7 +68,8 @@ static int	program_info(int ac, char **av, t_data *data)
 	else
 		data->num_meals = -1;
 	data->someone_died = false;
-	if (data->time_to_die < 60 || data->time_to_sleep < 60 || data->time_to_eat < 60)
+	if (data->time_to_die < 60 || data->time_to_sleep < 60
+		|| data->time_to_eat < 60)
 		return (error_msg("Timestamp too short, try 60ms or above"), 1);
 	data->start_time = get_time();
 	if (data->start_time == -1)
