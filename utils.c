@@ -77,3 +77,12 @@ long	get_time(void)
 	ms = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (ms);
 }
+
+void	ft_usleep(long ms, t_data *data)
+{
+	long	start;
+
+	start = get_time();
+	while (!data->someone_died && (get_time() - start) < ms)
+		usleep(200);
+}
