@@ -12,21 +12,26 @@
 
 #include "./philo.h"
 
-static void	print_status(t_philo *philo, const char *msg)
+void	set_forks(t_philo *philo, t_mtx **first, t_mtx **second)
 {
-	t_data	*data;
-
-	data = philo->data;
-	safe_mutex_handle(&data->print_mutex, LOCK);
-	if (!data->someone_died)
-		printf("%ld %d %s\n", get_time() - data->start_time, philo->id, msg);
-	safe_mutex_handle(&data->print_mutex, UNLOCK);
+	if (philo->id % 2 == 0)
+	{
+		*first = philo->right_fork;
+		*second = philo->left_fork;
+	}
+	else
+	{
+		*first = philo->left_fork;
+		*second = philo->right_fork;
+	}
 }
 
 static void	think(t_philo *philo)
 {
+	if (get_philos_state(philo->data))
+		return ;
 	print_status(philo, "is thinking");
-	ft_usleep(500, philo->data);
+	ft_usleep(50, philo->data);
 }
 
 static void	eat(t_philo *philo)
@@ -34,25 +39,26 @@ static void	eat(t_philo *philo)
 	t_mtx	*first;
 	t_mtx	*second;
 
-	if (philo->id % 2 == 0)
+	if (philo->data->n_philos == 1)
 	{
-		first = philo->right_fork;
-		second = philo->left_fork;
+		safe_mutex_handle(philo->left_fork, LOCK);
+		print_status(philo, "has taken a fork");
+		ft_usleep(philo->data->time_to_die, philo->data);
+		safe_mutex_handle(philo->left_fork, UNLOCK);
+		return ;
 	}
-	else
-	{
-		first = philo->left_fork;
-		second = philo->right_fork;
-	}
+	set_forks(philo, &first, &second);
+	if (get_philos_state(philo->data))
+		return ;
 	safe_mutex_handle(first, LOCK);
 	print_status(philo, "has taken a fork");
 	safe_mutex_handle(second, LOCK);
 	print_status(philo, "has taken a fork");
+	safe_mutex_handle(&philo->meal_mtx, LOCK);
 	print_status(philo, "is eating");
-	safe_mutex_handle(philo->meal_mtx, LOCK);
 	philo->last_meal_u = get_time();
 	philo->meals_taken++;
-	safe_mutex_handle(philo->meal_mtx, UNLOCK);
+	safe_mutex_handle(&philo->meal_mtx, UNLOCK);
 	ft_usleep(philo->data->time_to_eat, philo->data);
 	safe_mutex_handle(philo->left_fork, UNLOCK);
 	safe_mutex_handle(philo->right_fork, UNLOCK);
@@ -60,8 +66,10 @@ static void	eat(t_philo *philo)
 
 static void	sleeping(t_philo *philo)
 {
+	if (get_philos_state(philo->data))
+		return ;
 	print_status(philo, "is sleeping");
-	usleep(philo->data->time_to_sleep * 1000);
+	ft_usleep(philo->data->time_to_sleep, philo->data);
 }
 
 void	*philo_routine(void *arg)
@@ -71,7 +79,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
-	while (!data->someone_died)
+	while (!get_philos_state(data))
 	{
 		think(philo);
 		eat(philo);

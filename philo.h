@@ -23,6 +23,7 @@
 # define INT_MAX 2147483647
 
 typedef pthread_mutex_t	t_mtx;
+typedef	struct s_philo	t_philo;
 
 typedef enum e_opcode
 {
@@ -45,6 +46,7 @@ typedef struct s_data
 	bool		someone_died;
 	t_mtx		*forks;
 	t_mtx		print_mutex;
+	t_mtx		all_alive_mtx;
 	t_philo		*philos;
 }	t_data;
 
@@ -55,7 +57,7 @@ typedef struct s_philo
 	long		last_meal_u;
 	t_mtx		*left_fork;
 	t_mtx		*right_fork;
-	t_mtx		*meal_mtx;
+	t_mtx		meal_mtx;
 	t_data		*data;
 	pthread_t	thread;
 }	t_philo;
@@ -63,8 +65,10 @@ typedef struct s_philo
 /*				PARSE & INITS & RUN					*/
 int		check_valid_input(int ac, char **av);
 int		init_philos(t_data *data);
+int		init_data(int ac, char **av, t_data *data);
 int		run(t_data *data);
 void	*philo_routine(void *arg);
+void	*monitor_routine(void *arg);
 
 /*					ERROR AND FREES					*/
 void	error_msg(char *str);
@@ -76,5 +80,7 @@ long	get_time(void);
 long	ft_atol(const char *str);
 int		ft_is_invalid_n(char *number);
 void	ft_usleep(long ms, t_data *data);
+void	print_status(t_philo *philo, const char *msg);
+bool	get_philos_state(t_data *data);
 
 #endif

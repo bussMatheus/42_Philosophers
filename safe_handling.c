@@ -48,3 +48,24 @@ int	safe_mutex_handle(t_mtx *mtx, t_opc opcode)
 		status = pthread_mutex_destroy(mtx);
 	return (handle_mtx_error(status, opcode));
 }
+
+void	print_status(t_philo *philo, const char *msg)
+{
+	t_data	*data;
+
+	data = philo->data;
+	safe_mutex_handle(&data->print_mutex, LOCK);
+	if (!get_philos_state(philo->data))
+		printf("%ld %d %s\n", get_time() - data->start_time, philo->id, msg);
+	safe_mutex_handle(&data->print_mutex, UNLOCK);
+}
+
+bool	get_philos_state(t_data *data)
+{
+	bool	value;
+
+	safe_mutex_handle(&data->all_alive_mtx, LOCK);
+	value = data->someone_died;
+	safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
+	return (value);
+}

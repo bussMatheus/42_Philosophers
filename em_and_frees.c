@@ -39,6 +39,7 @@ void	destroy_data(t_data *data)
 		safe_mutex_handle(&data->forks[i++], DESTROY);
 	}
 	safe_mutex_handle(&data->print_mutex, DESTROY);
+	safe_mutex_handle(&data->all_alive_mtx, DESTROY);
 	free(data->forks);
 	data->forks = NULL;
 	if (data->philos)

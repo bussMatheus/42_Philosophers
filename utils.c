@@ -95,6 +95,6 @@ void	ft_usleep(long ms, t_data *data)
 	long	start;
 
 	start = get_time();
-	while (!data->someone_died && (get_time() - start) < ms)
-		usleep(200);
+	while (!get_philos_state(data) && (get_time() - start) < ms)
+		usleep(50);
 }
