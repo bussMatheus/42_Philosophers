@@ -21,6 +21,9 @@
 # include <errno.h>
 
 # define INT_MAX 2147483647
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
 typedef pthread_mutex_t	t_mtx;
 typedef	struct s_philo	t_philo;
@@ -82,5 +85,6 @@ int		ft_is_invalid_n(char *number);
 void	ft_usleep(long ms, t_data *data);
 void	print_status(t_philo *philo, const char *msg);
 bool	get_philos_state(t_data *data);
+void	show_meals_taken(t_data *data);
 
 #endif

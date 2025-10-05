@@ -6,10 +6,13 @@ OBJ = $(SRC:%.c=%.o)
 NAME = philo
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -O3 -g3
+CFLAGS = -Wall -Wextra -O3 -D DEBUG=1
 
 AR = ar rcs
 RM = rm -rf
+
+OBJDIR = obj
+OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # ANSI color codes
 GREEN = \033[0;32m
@@ -21,19 +24,22 @@ NC = \033[0m  # No Color (reset)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
-	@echo "$(GREEN)Compiled philo successfully$(NC)"
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "$(GREEN)Compiled $(NAME) successfully$(NC)"
 
-$(OBJS): %.o: %.c
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
 	@echo "$(BLUE)Compiling $<...$(NC)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
+
 clean:
-	@echo "$(RED)Removing object files: $(NAME)$(NC)"
-	@$(RM) $(OBJ)
+	@echo "$(RED)Removing object files...$(NC)"
+	@$(RM) $(OBJDIR)
 
 fclean: clean
-	@echo "$(RED)Removing static library: $(NAME)$(NC)"
+	@echo "$(RED)Removing binary: $(NAME)$(NC)"
 	@$(RM) $(NAME)
 
 re: fclean all

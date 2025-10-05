@@ -69,3 +69,18 @@ bool	get_philos_state(t_data *data)
 	safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
 	return (value);
 }
+
+void	show_meals_taken(t_data *data)
+{
+	int	i;
+
+	printf("\n=== DEBUG: Meals taken ===\n");
+	i = 0;
+	while (i < data->n_philos)
+	{
+		printf("Philo %d -> meals_taken: %d\n",
+			data->philos[i].id, data->philos[i].meals_taken);
+		i++;
+	}
+	printf("==========================\n\n");
+}

@@ -22,6 +22,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (run(&data))
 		return (destroy_data(&data), 1);
+	if (DEBUG)
+		show_meals_taken(&data);
 	destroy_data(&data);
 	return (0);
 }
