@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:05:07 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/10/06 20:20:46 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/10/06 20:54:35 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	run(t_data *data)
 	return (0);
 }
 
-bool	check_death(t_data *data, t_philo *philo)
+static bool	check_death(t_data *data, t_philo *philo)
 {
 	long	time_after_meal;
 
@@ -48,11 +48,11 @@ bool	check_death(t_data *data, t_philo *philo)
 	safe_mutex_handle(&philo->meal_mtx, UNLOCK);
 	if (time_after_meal >= data->time_to_die)
 	{
+		safe_mutex_handle(&data->all_alive_mtx, LOCK);
+		data->someone_died = true;
 		safe_mutex_handle(&data->print_mutex, LOCK);
 		printf("%ld %d died\n", get_time() - data->start_time, philo->id);
 		safe_mutex_handle(&data->print_mutex, UNLOCK);
-		safe_mutex_handle(&data->all_alive_mtx, LOCK);
-		data->someone_died = true;
 		safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
 		return (true);
 	}
@@ -110,7 +110,7 @@ void	*monitor_routine(void *arg)
 	{
 		if (check_philos(data))
 			break ;
-		usleep(10);
+		usleep(1000);
 	}
 	return (NULL);
 }

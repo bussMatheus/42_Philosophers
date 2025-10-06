@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:05:15 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/10/06 20:27:40 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/10/06 21:08:55 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	*philo_routine(void *arg)
 	{
 		if (philo->just_ate)
 		{
-			usleep(10);
-			philo->just_ate = false;	
+			usleep(20);
+			philo->just_ate = false;
 		}
 		think(philo);
 		eat(philo);

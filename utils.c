@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:05:29 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/10/06 20:25:41 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/10/06 20:53:36 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ void	ft_usleep(long ms, t_data *data)
 
 	start = get_time();
 	while (!get_philos_state(data) && (get_time() - start) < ms)
-		usleep(5);
+		usleep(10);
 }
