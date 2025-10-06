@@ -55,6 +55,7 @@ static void	eat(t_philo *philo)
 	philo->last_meal_u = get_time();
 	philo->meals_taken++;
 	print_status(philo, "is eating");
+	philo->just_ate = true;
 	safe_mutex_handle(&philo->meal_mtx, UNLOCK);
 	ft_usleep(philo->data->time_to_eat, philo->data);
 	safe_mutex_handle(philo->left_fork, UNLOCK);
@@ -76,8 +77,12 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
+	if (philo->id % 2 == 0)
+		usleep(100);
 	while (!get_philos_state(data))
 	{
+		if (philo->just_ate)
+			usleep(50);
 		think(philo);
 		eat(philo);
 		sleeping(philo);

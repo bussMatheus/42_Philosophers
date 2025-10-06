@@ -58,6 +58,7 @@ typedef struct s_philo
 	int			id;
 	int			meals_taken;
 	long		last_meal_u;
+	bool		just_ate;
 	t_mtx		*left_fork;
 	t_mtx		*right_fork;
 	t_mtx		meal_mtx;

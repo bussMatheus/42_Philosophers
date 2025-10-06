@@ -47,6 +47,7 @@ int	init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].data = data;
 		data->philos[i].meals_taken = 0;
+		data->philos[i].just_ate = false;
 		data->philos[i].last_meal_u = data->start_time;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philos];
