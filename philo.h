@@ -26,7 +26,7 @@
 # endif
 
 typedef pthread_mutex_t	t_mtx;
-typedef	struct s_philo	t_philo;
+typedef struct s_philo	t_philo;
 
 typedef enum e_opcode
 {
