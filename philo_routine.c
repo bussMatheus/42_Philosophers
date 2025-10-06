@@ -31,7 +31,6 @@ static void	think(t_philo *philo)
 	if (get_philos_state(philo->data))
 		return ;
 	print_status(philo, "is thinking");
-	ft_usleep(50, philo->data);
 }
 
 static void	eat(t_philo *philo)
@@ -39,25 +38,23 @@ static void	eat(t_philo *philo)
 	t_mtx	*first;
 	t_mtx	*second;
 
-	if (philo->data->n_philos == 1)
-	{
-		safe_mutex_handle(philo->left_fork, LOCK);
-		print_status(philo, "has taken a fork");
-		ft_usleep(philo->data->time_to_die, philo->data);
-		safe_mutex_handle(philo->left_fork, UNLOCK);
-		return ;
-	}
 	set_forks(philo, &first, &second);
 	if (get_philos_state(philo->data))
 		return ;
 	safe_mutex_handle(first, LOCK);
 	print_status(philo, "has taken a fork");
+	if (philo->data->n_philos == 1)
+	{
+		ft_usleep(philo->data->time_to_die, philo->data);
+		safe_mutex_handle(first, UNLOCK);
+		return ;
+	}
 	safe_mutex_handle(second, LOCK);
 	print_status(philo, "has taken a fork");
 	safe_mutex_handle(&philo->meal_mtx, LOCK);
-	print_status(philo, "is eating");
 	philo->last_meal_u = get_time();
 	philo->meals_taken++;
+	print_status(philo, "is eating");
 	safe_mutex_handle(&philo->meal_mtx, UNLOCK);
 	ft_usleep(philo->data->time_to_eat, philo->data);
 	safe_mutex_handle(philo->left_fork, UNLOCK);

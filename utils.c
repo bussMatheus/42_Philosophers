@@ -96,5 +96,5 @@ void	ft_usleep(long ms, t_data *data)
 
 	start = get_time();
 	while (!get_philos_state(data) && (get_time() - start) < ms)
-		usleep(50);
+		usleep(10);
 }
