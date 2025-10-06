@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:05:07 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/09/25 17:10:43 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/10/06 20:20:46 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	run(t_data *data)
 	return (0);
 }
 
-static bool	check_death(t_data *data, t_philo *philo)
+bool	check_death(t_data *data, t_philo *philo)
 {
 	long	time_after_meal;
 
@@ -110,7 +110,7 @@ void	*monitor_routine(void *arg)
 	{
 		if (check_philos(data))
 			break ;
-		usleep(1000);
+		usleep(10);
 	}
 	return (NULL);
 }

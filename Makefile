@@ -6,7 +6,7 @@ OBJ = $(SRC:%.c=%.o)
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -D DEBUG=0
+CFLAGS = -Wall -Wextra -Werror -O3 -D DEBUG=1
 
 AR = ar rcs
 RM = rm -rf

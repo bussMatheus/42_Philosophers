@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:05:20 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/09/25 17:13:23 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/10/06 18:48:11 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void	ft_usleep(long ms, t_data *data);
 void	print_status(t_philo *philo, const char *msg);
 bool	get_philos_state(t_data *data);
 void	show_meals_taken(t_data *data);
+bool	check_death(t_data *data, t_philo *philo);
 
 #endif
