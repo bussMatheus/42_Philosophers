@@ -24,7 +24,7 @@ NC = \033[0m  # No Color (reset)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "$(GREEN)Compiled $(NAME) successfully$(NC)"
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
