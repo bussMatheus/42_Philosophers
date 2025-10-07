@@ -46,14 +46,12 @@ static bool	check_death(t_data *data, t_philo *philo)
 	safe_mutex_handle(&philo->meal_mtx, LOCK);
 	time_after_meal = get_time() - philo->last_meal_u;
 	safe_mutex_handle(&philo->meal_mtx, UNLOCK);
-	if (time_after_meal >= data->time_to_die)
+	if (time_after_meal > data->time_to_die)
 	{
-		safe_mutex_handle(&data->all_alive_mtx, LOCK);
-		data->someone_died = true;
 		safe_mutex_handle(&data->print_mutex, LOCK);
+		data->someone_died = true;
 		printf("%ld %d died\n", get_time() - data->start_time, philo->id);
 		safe_mutex_handle(&data->print_mutex, UNLOCK);
-		safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
 		return (true);
 	}
 	return (false);
@@ -93,9 +91,9 @@ static bool	check_philos(t_data *data)
 	}
 	if (all_philos_done(data))
 	{
-		safe_mutex_handle(&data->all_alive_mtx, LOCK);
+		safe_mutex_handle(&data->print_mutex, LOCK);
 		data->someone_died = true;
-		safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
+		safe_mutex_handle(&data->print_mutex, UNLOCK);
 		return (true);
 	}
 	return (false);

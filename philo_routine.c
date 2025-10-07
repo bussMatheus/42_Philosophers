@@ -58,8 +58,8 @@ static void	eat(t_philo *philo)
 	safe_mutex_handle(&philo->meal_mtx, UNLOCK);
 	print_status(philo, "is eating");
 	ft_usleep(philo->data->time_to_eat, philo->data);
-	safe_mutex_handle(philo->left_fork, UNLOCK);
-	safe_mutex_handle(philo->right_fork, UNLOCK);
+	safe_mutex_handle(first, UNLOCK);
+	safe_mutex_handle(second, UNLOCK);
 }
 
 static void	sleeping(t_philo *philo)
@@ -78,17 +78,17 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	if (philo->id % 2 == 0)
-		usleep(100);
+		usleep(500);
 	while (!get_philos_state(data))
 	{
-		if (philo->just_ate)
-		{
-			usleep(20);
-			philo->just_ate = false;
-		}
 		think(philo);
 		eat(philo);
 		sleeping(philo);
+		if (philo->just_ate)
+		{
+			ft_usleep(2, data);
+			philo->just_ate = false;
+		}
 	}
 	return (NULL);
 }
