@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:05:15 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/09/25 17:14:02 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:57:34 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,33 @@ static void	think(t_philo *philo)
 	print_status(philo, "is thinking");
 }
 
-static void	eat(t_philo *philo)
+static int	eat(t_philo *philo)
 {
 	t_mtx	*first;
 	t_mtx	*second;
 
 	set_forks(philo, &first, &second);
 	if (get_philos_state(philo->data))
-		return ;
+		return (1);
 	safe_mutex_handle(first, LOCK);
 	print_status(philo, "has taken a fork");
 	if (philo->data->n_philos == 1)
 	{
-		ft_usleep(philo->data->time_to_die, philo->data);
+		ft_usleep(philo->data->time_to_die + 1, philo->data);
 		safe_mutex_handle(first, UNLOCK);
-		return ;
+		return (1);
 	}
 	safe_mutex_handle(second, LOCK);
 	print_status(philo, "has taken a fork");
 	safe_mutex_handle(&philo->meal_mtx, LOCK);
 	philo->last_meal_u = get_time();
 	philo->meals_taken++;
-	print_status(philo, "is eating");
-	philo->just_ate = true;
 	safe_mutex_handle(&philo->meal_mtx, UNLOCK);
+	print_status(philo, "is eating");
 	ft_usleep(philo->data->time_to_eat, philo->data);
-	safe_mutex_handle(philo->left_fork, UNLOCK);
-	safe_mutex_handle(philo->right_fork, UNLOCK);
+	safe_mutex_handle(first, UNLOCK);
+	safe_mutex_handle(second, UNLOCK);
+	return (0);
 }
 
 static void	sleeping(t_philo *philo)
@@ -78,14 +78,15 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	if (philo->id % 2 == 0)
-		usleep(100);
+		usleep(500);
 	while (!get_philos_state(data))
 	{
-		if (philo->just_ate)
-			usleep(50);
 		think(philo);
-		eat(philo);
+		if (eat(philo))
+			return (NULL);
 		sleeping(philo);
+		if (philo->data->n_philos % 2 != 0)
+			ft_usleep(1, data);
 	}
 	return (NULL);
 }

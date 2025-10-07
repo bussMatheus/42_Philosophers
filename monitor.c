@@ -6,7 +6,7 @@
 /*   By: mely-pan <mely-pan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:05:07 by mely-pan          #+#    #+#             */
-/*   Updated: 2025/09/25 17:10:43 by mely-pan         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:28:26 by mely-pan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ static bool	check_death(t_data *data, t_philo *philo)
 	if (time_after_meal >= data->time_to_die)
 	{
 		safe_mutex_handle(&data->print_mutex, LOCK);
+		data->someone_died = true;
 		printf("%ld %d died\n", get_time() - data->start_time, philo->id);
 		safe_mutex_handle(&data->print_mutex, UNLOCK);
-		safe_mutex_handle(&data->all_alive_mtx, LOCK);
-		data->someone_died = true;
-		safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
 		return (true);
 	}
 	return (false);
@@ -93,9 +91,9 @@ static bool	check_philos(t_data *data)
 	}
 	if (all_philos_done(data))
 	{
-		safe_mutex_handle(&data->all_alive_mtx, LOCK);
+		safe_mutex_handle(&data->print_mutex, LOCK);
 		data->someone_died = true;
-		safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
+		safe_mutex_handle(&data->print_mutex, UNLOCK);
 		return (true);
 	}
 	return (false);
@@ -110,7 +108,7 @@ void	*monitor_routine(void *arg)
 	{
 		if (check_philos(data))
 			break ;
-		usleep(1000);
+		usleep(100);
 	}
 	return (NULL);
 }

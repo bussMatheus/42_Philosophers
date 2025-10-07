@@ -55,7 +55,7 @@ void	print_status(t_philo *philo, const char *msg)
 
 	data = philo->data;
 	safe_mutex_handle(&data->print_mutex, LOCK);
-	if (!get_philos_state(philo->data))
+	if (!philo->data->someone_died)
 		printf("%ld %d %s\n", get_time() - data->start_time, philo->id, msg);
 	safe_mutex_handle(&data->print_mutex, UNLOCK);
 }
@@ -64,9 +64,9 @@ bool	get_philos_state(t_data *data)
 {
 	bool	value;
 
-	safe_mutex_handle(&data->all_alive_mtx, LOCK);
+	safe_mutex_handle(&data->print_mutex, LOCK);
 	value = data->someone_died;
-	safe_mutex_handle(&data->all_alive_mtx, UNLOCK);
+	safe_mutex_handle(&data->print_mutex, UNLOCK);
 	return (value);
 }
 
