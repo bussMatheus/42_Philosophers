@@ -47,7 +47,6 @@ int	init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].data = data;
 		data->philos[i].meals_taken = 0;
-		data->philos[i].just_ate = false;
 		data->philos[i].last_meal_u = data->start_time;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->n_philos];
@@ -84,15 +83,9 @@ int	init_data(int ac, char **av, t_data *data)
 		return (1);
 	if (safe_mutex_handle(&data->print_mutex, INIT))
 		return (1);
-	if (safe_mutex_handle(&data->all_alive_mtx, INIT))
-	{
-		safe_mutex_handle(&data->print_mutex, DESTROY);
-		return (1);
-	}
 	if (init_forks(data))
 	{
 		safe_mutex_handle(&data->print_mutex, DESTROY);
-		safe_mutex_handle(&data->all_alive_mtx, DESTROY);
 		return (error_msg("Error initializing forks"), 1);
 	}
 	if (init_philos(data))

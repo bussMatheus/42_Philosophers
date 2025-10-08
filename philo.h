@@ -49,7 +49,6 @@ typedef struct s_data
 	bool		someone_died;
 	t_mtx		*forks;
 	t_mtx		print_mutex;
-	t_mtx		all_alive_mtx;
 	t_philo		*philos;
 }	t_data;
 
@@ -58,7 +57,6 @@ typedef struct s_philo
 	int			id;
 	int			meals_taken;
 	long		last_meal_u;
-	bool		just_ate;
 	t_mtx		*left_fork;
 	t_mtx		*right_fork;
 	t_mtx		meal_mtx;
