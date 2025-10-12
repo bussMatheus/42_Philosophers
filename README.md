@@ -6,7 +6,7 @@ Each philosopher is represented by a thread that cycles through **eating**, **sl
 
 ---
 
-## ⚙️ Features
+## Features
 
 - ✅ Each philosopher runs as an independent thread
 - ✅ Shared forks are protected with **mutexes**
@@ -18,20 +18,20 @@ Each philosopher is represented by a thread that cycles through **eating**, **sl
 
 ---
 
-## 🧩 Understanding the Simulation
+## Understanding the Simulation
 
 At its core, the program creates **N philosophers** seated around a table.
 Each philosopher alternates between three main states:
 
-1. **Thinking** 🧘 – waiting before attempting to eat again
-2. **Eating** 🍝 – takes both forks (mutexes) and updates their last meal time
-3. **Sleeping** 😴 – releases forks and rests before thinking again
+1. **Thinking** – waiting before attempting to eat again
+2. **Eating** – takes both forks (mutexes) and updates their last meal time
+3. **Sleeping** – releases forks and rests before thinking again
 
 If a philosopher doesn’t eat within `time_to_die` milliseconds, well... he dies, and the simulation ends in a state of grief. 🖤
 
 ---
 
-## 🧵 Thread Synchronization
+## Thread Synchronization
 
 To avoid race conditions and ensure fairness:
 - Each fork is a **mutex** shared between two philosophers.
@@ -56,7 +56,7 @@ To ensure realistic and reproducible behavior across different machines, I set a
 
 ## How To Use
 
-### ⚙️ Parameters
+### Parameters
 ./philo  number_of_philosophers  time_to_die  time_to_eat  time_to_sleep [number_of_times_each_philosopher_must_eat]
 
 
